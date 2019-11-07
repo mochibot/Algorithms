@@ -3,15 +3,17 @@
 import math
 
 def recipe_batches(recipe, ingredients):
-    quantity = []
+    min_quantity = None
 
     for key in recipe:
         if key not in ingredients:
             return 0
         else: 
-            quantity.append(ingredients[key] // recipe[key]) 
+            quantity = ingredients[key] // recipe[key]
+            if not min_quantity or quantity < min_quantity:
+                min_quantity = quantity
 
-    return min(quantity)
+    return min_quantity
 
 
 if __name__ == '__main__':
