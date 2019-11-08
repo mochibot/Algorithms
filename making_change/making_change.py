@@ -2,8 +2,36 @@
 
 import sys
 
+# recursive apprach, not efficient
+def making_change_recursive(amount, denominations):
+    
+    if amount < 0:
+        return 0
+    
+    if amount == 0:
+        return 1
+    
+    ways = 0
+    curr_index = 0
+    for coin in denominations:
+        if coin <= amount:
+            curr_index += 1
+            ways += making_change_recursive(amount - coin, denominations[:curr_index])
+
+    return ways
+
+
+# bottom-up approach
 def making_change(amount, denominations):
-  pass 
+
+    ways = [0] * (amount + 1)
+    ways[0] = 1    #base case
+
+    for coin in denominations:
+        for num in range(coin, amount + 1):
+            ways[num] += ways[num - coin]
+
+    return ways[amount]
 
 
 if __name__ == "__main__":
